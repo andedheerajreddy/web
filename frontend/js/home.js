@@ -13,7 +13,7 @@ $(function(){
               success: function(da){
                     if(da.errmssg==null){
                    $("h5").html("SUCCESSFULLY ADDED!!!").show(()=>{
-                          setInterval(() => {
+                          setTimeout(() => {
                             $("h5").html("")
                         }, 3000);
                    })
@@ -23,13 +23,13 @@ $(function(){
                  else{
                     if(da.duplicatekey==true){
                     $("h5").html("USER ID ALREADY EXISTS!").show(()=>{
-                        setInterval(() => {
+                        setTimeout(() => {
                         $("h5").html("")
                         }, 3000);
                  })}
                     else{
                     $("h5").html(da.errmssg).show(()=>{
-                        setInterval(() => {
+                        setTimeout(() => {
                             $("h5").html("")
                         }, 3000);
                  })
@@ -43,7 +43,7 @@ $(function(){
               } ,
               error:(err)=>{
                 $("h5").html(err).show(()=>{
-                    setInterval(() => {
+                    setTimeout(() => {
                         $("h5").html("")
                     }, 3000);
              })
