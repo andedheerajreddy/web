@@ -12,15 +12,28 @@ $(function(){
               data: jsondata,
               success: function(da){
                     if(da.errmssg==null){
-                   $("h5").html("SUCCESSFULLY ADDED!!!").show("10000").fadeOut("1000");
+                   $("h5").html("SUCCESSFULLY ADDED!!!").show(()=>{
+                          setInterval(() => {
+                            $("h5").html("")
+                        }, 3000);
+                   })
                    var txt="<tr><td>"+da.id+"</td><td>"+da.name+"</td><td>"+da.age+"</td><td>"+da.mobile+"</td"+"</tr>";
                    $("#table").append(txt);
                 }
                  else{
-                    if(da.duplicatekey==true)
-                    $("h5").html("USER ID ALREADY EXISTS!").show("10000").fadeOut("1000");
-                    else
-                    $("h5").html(da.errmssg).show("10000").fadeOut("1000");
+                    if(da.duplicatekey==true){
+                    $("h5").html("USER ID ALREADY EXISTS!").show(()=>{
+                        setInterval(() => {
+                        $("h5").html("")
+                        }, 3000);
+                 })}
+                    else{
+                    $("h5").html(da.errmssg).show(()=>{
+                        setInterval(() => {
+                            $("h5").html("")
+                        }, 3000);
+                 })
+                }
                  }
                  $("#_id").val("");
                  $("#name").val("");
@@ -29,7 +42,11 @@ $(function(){
                    
               } ,
               error:(err)=>{
-                $("h5").html(err).show("10000").fadeOut("1000");
+                $("h5").html(err).show(()=>{
+                    setInterval(() => {
+                        $("h5").html("")
+                    }, 3000);
+             })
                 $("#_id").val("");
                 $("#name").val("");
                 $("#age").val("");
