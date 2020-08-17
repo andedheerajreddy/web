@@ -10,18 +10,32 @@ $(function(){
               type:"post",
               url:"/api/users/create",
               data: jsondata,
-              success: function(){
-                 $("h5").html("SUCCESSFULLY ADDED!!!").hide().fadeIn("slow");
-                 setTimeout(() => {
-                    location.reload();
-                 }, 2000);
-                     
+              success: function(da){
+                  if(da.errmssg==null){
+                 $("h5").html("SUCCESSFULLY ADDED!!!").hide().fadeIn("1000").show("6000").fadeOut("1000");
+               var txt="<tr><td>"+da.id+"</td><td>"+da.name+"</td><td>"+da.age+"</td><td>"+da.mobile+"</td"+"</tr>";
+
+                $("#table").append(txt);
+                }
+                 else{
+                    if(da.duplicatekey==true)
+                    $("h5").html("USER ID ALREADY EXISTS!").hide().fadeIn("1000").show("6000").fadeOut("1000");
+                    else
+                    $("h5").html(da.errmssg).hide().hide().fadeIn("1000").show("6000").fadeOut("1000");
+                 }
+                 $("#_id").val("");
+                 $("#name").val("");
+                 $("#age").val("");
+                 $("#mobile").val("");
+                   
               } ,
               error:(err)=>{
-                $("h5").html("FAILED TO ADD!!!").hide().fadeIn(slow);
-                setTimeout(() => {
-                   location.reload();
-                }, 2000);
+                $("h5").html(err).hide().fadeIn("1000").show("6000").fadeOut("1000");
+                $("#_id").val("");
+                $("#name").val("");
+                $("#age").val("");
+                $("#mobile").val("");
+
               }
           })
     })
@@ -41,11 +55,11 @@ $(function(){
 
 
 function display(data){
-    var txt="<table><tr><th>ID</th><th>NAME</th><th>AGE</th><th>MOBILE</th></tr>";
+    var txt="<tr><th>ID</th><th>NAME</th><th>AGE</th><th>MOBILE</th></tr>";
      for(var i=0;i<data.length;i++){
          txt+="<tr><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].age+"</td><td>"+data[i].mobile+"</td"+"</tr>";
      }
-     txt+="</table>";
+   
      $("#table").html(txt);
 }
 

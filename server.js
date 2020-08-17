@@ -37,13 +37,25 @@ app.get("/api/users/:id",(req,res)=>{
 })
 app.post('/api/users/create',(req,res)=>{
     console.log(req.body);
-       users.createuser(req.body,(err,data)=>{
-              if(err)
+       users.createuser(req.body,(err,da)=>{
+          if(err)
+          da={};        
+       
+                 console.log(JSON.stringify(da));
+                  
+            
+              if(err){
+                da.errmssg=err;
+                da.duplicatekey=err.includes('duplicate key') ;
               console.log("FAILED TO ADD USER"+err);
-              else
-              console.log("USER ADDED"+JSON.stringify(data));
+            }
+              else{
+                  da.errmssg=null;
+              console.log("USER ADDED"+JSON.stringify(da));}
+
+        res.json(da);
        })
-       res.redirect("/");
+      
 })
 
 
